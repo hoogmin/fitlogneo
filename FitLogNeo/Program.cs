@@ -15,17 +15,24 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-})
+builder.Services.AddAuthentication()
 .AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:CLIENT_ID"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:CLIENT_SECRET"];
     googleOptions.CallbackPath = "/signin-google"; // Matches redirect URI
+
+    // Handle authentication failures
+    googleOptions.Events = new Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents
+    {
+        OnRemoteFailure = context =>
+        {
+            // Redirect to login with error message
+            context.Response.Redirect("/Identity/Account/Login?error=GoogleAuthCancelled");
+            context.HandleResponse();
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -34,8 +41,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.ExpireTimeSpan = TimeSpan.FromDays(14);
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Logout";
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
 builder.Services.AddAntiforgery(options =>

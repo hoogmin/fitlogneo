@@ -10,17 +10,26 @@
     </li>
     <li class="nav-item">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link">
+                <i class="fa-solid fa-door-open pr-2"></i>
+                Logout
+            </button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+            <i class="fa-solid fa-user-plus pr-2"></i>
+            Register
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">
+            <i class="fa-solid fa-right-to-bracket pr-2"></i>
+            Login
+        </a>
     </li>
 }
 </ul>

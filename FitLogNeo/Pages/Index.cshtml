@@ -1,10 +1,29 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (Model.IsAuthenticated)
+{
+    <div class="text-center">
+        <h1 class="display-4">Dashboard</h1>
+        <p>Welcome, @Model.CurrentUser!.UserName</p>     
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">FitLogNeo</h1>
+        <h3>Your Open-Source Fitness Journal.</h3>
+        <div class="d-flex flex-column my-3 gap-2 w-50 mx-auto">
+            <a class="btn btn-primary" asp-area="" asp-page="/Identity/Account/Login">
+                Login
+            </a>
+            <a class="btn btn-success" asp-area="" asp-page="/Identity/Account/Register">
+                Register
+            </a>
+        </div>
+    </div>
+}
+
