@@ -2,10 +2,10 @@
 @model FitLogNeo.Pages.FitnessLogs.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Fitness Logs";
 }
 
-<h1>Index</h1>
+<h1>All Fitness Logs</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FitnessLog[0].User)
+                @Html.DisplayNameFor(model => model.FitnessLog[0].Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FitnessLog[0].Date)
@@ -38,7 +38,7 @@
 @foreach (var item in Model.FitnessLog) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)

@@ -25,6 +25,22 @@
                 </li>
             </ul>
         </div>
+        <h2 class="my-3">Most Recent Log</h2>
+        @if (Model.MostRecentLog is not null)
+        {
+            <div class="card w-50 mx-auto">
+                <div class="card-body">
+                    <h5 class="card-title">@(Model.MostRecentLog.Exercise)</h5>
+                    <p class="card-text">@(Model.MostRecentLog.Date.ToString("MMMM dd/yyyy hh:mm tt"))</p>
+                    <a asp-page="/FitnessLogs/Details" asp-route-id="@Model.MostRecentLog.Id" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>No fitness logs. <a asp-page="/FitnessLogs/Create">Create one</a>.</p>
+        }
+        
     </div>
 }
 else
