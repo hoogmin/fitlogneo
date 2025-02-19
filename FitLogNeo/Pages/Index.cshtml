@@ -30,7 +30,7 @@
         {
             <div class="card w-50 mx-auto">
                 <div class="card-body">
-                    <h5 class="card-title">@(Model.MostRecentLog.Exercise)</h5>
+                    <h5 class="card-title">@(Model.MostRecentLog.Exercise.Length > 20 ? Model.MostRecentLog.Exercise.Substring(0, 20) + "..." : Model.MostRecentLog.Exercise)</h5>
                     <p class="card-text">@(Model.MostRecentLog.Date.ToString("MMMM dd/yyyy hh:mm tt"))</p>
                     <a asp-page="/FitnessLogs/Details" asp-route-id="@Model.MostRecentLog.Id" class="btn btn-primary">View</a>
                 </div>
